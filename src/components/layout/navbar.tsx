@@ -63,11 +63,10 @@ export function Navbar() {
             initial={{ opacity: 0, y: -18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className={`pointer-events-auto relative flex items-center justify-between rounded-[22px] sm:rounded-[26px] px-3 sm:px-4 lg:px-5 py-2.5 sm:py-3 transition-all duration-500 ease-out ${
-              isHomeHero
-                ? "bg-white/[0.08] dark:bg-black/[0.10] border-white/[0.16] dark:border-white/[0.12] shadow-[0_8px_40px_rgba(0,0,0,0.12)]"
-                : "bg-white/[0.68] dark:bg-[#151513]/[0.72] border-black/[0.07] dark:border-white/[0.09] shadow-[0_10px_45px_rgba(0,0,0,0.10)] dark:shadow-[0_10px_45px_rgba(0,0,0,0.30)]"
-            } backdrop-blur-2xl backdrop-saturate-150 border ring-1 ring-inset ring-white/[0.10] dark:ring-white/[0.04]`}
+            className={`pointer-events-auto relative flex items-center justify-between rounded-[22px] sm:rounded-[26px] px-3 sm:px-4 lg:px-5 py-2.5 sm:py-3 transition-all duration-500 ease-out ${isHomeHero
+              ? "bg-white/[0.08] dark:bg-black/[0.10] border-white/[0.16] dark:border-white/[0.12] shadow-[0_8px_40px_rgba(0,0,0,0.12)]"
+              : "bg-white/[0.68] dark:bg-[#151513]/[0.72] border-black/[0.07] dark:border-white/[0.09] shadow-[0_10px_45px_rgba(0,0,0,0.10)] dark:shadow-[0_10px_45px_rgba(0,0,0,0.30)]"
+              } backdrop-blur-2xl backdrop-saturate-150 border ring-1 ring-inset ring-white/[0.10] dark:ring-white/[0.04]`}
           >
             {/* ====================================================== LIQUID GLASS HIGHLIGHT ====================================================== */}
             <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[22px] sm:rounded-[26px]">
@@ -88,29 +87,19 @@ export function Navbar() {
               <motion.div
                 whileHover={{ rotate: 8, scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300, damping: 18 }}
-                className={`flex h-9 w-9 items-center justify-center rounded-full border backdrop-blur-xl transition-all duration-500 ${
-                  isHomeHero
-                    ? "border-white/20 bg-white/10 text-amber-300"
-                    : "border-black/10 bg-black/[0.04] text-amber-700 dark:border-white/10 dark:bg-white/[0.05] dark:text-amber-400"
-                }`}
+                className={`flex h-9 w-9 items-center justify-center rounded-full border backdrop-blur-xl transition-all duration-500 ${isHomeHero
+                  ? "border-white/20 bg-white/10 text-amber-300"
+                  : "border-black/10 bg-black/[0.04] text-amber-700 dark:border-white/10 dark:bg-white/[0.05] dark:text-amber-400"
+                  }`}
               >
                 <Camera className="h-[17px] w-[17px]" strokeWidth={1.8} />
               </motion.div>
-              <div className="hidden xs:block sm:block">
-                <span
-                  className={`block font-serif text-[14px] sm:text-[15px] lg:text-[16px] font-semibold uppercase tracking-[0.16em] transition-colors duration-500 ${
-                    isHomeHero ? "text-white" : "text-neutral-950 dark:text-white"
-                  }`}
-                >
+              <div className="block">
+                <span className="block font-serif text-[13px] font-semibold uppercase tracking-[0.12em]">
                   Shree Shyam
                 </span>
-                <span
-                  className={`hidden lg:block text-[8px] font-medium uppercase tracking-[0.32em] transition-colors duration-500 ${
-                    isHomeHero
-                      ? "text-white/55"
-                      : "text-neutral-500 dark:text-neutral-400"
-                  }`}
-                >
+
+                <span className="block text-[7px] uppercase tracking-[0.3em] opacity-50">
                   Studio
                 </span>
               </div>
@@ -138,23 +127,21 @@ export function Navbar() {
                           stiffness: 380,
                           damping: 30,
                         }}
-                        className={`absolute inset-0 rounded-full border backdrop-blur-md ${
-                          isHomeHero
-                            ? "border-white/10 bg-white/[0.10]"
-                            : "border-black/[0.06] bg-black/[0.045] dark:border-white/[0.08] dark:bg-white/[0.06]"
-                        }`}
+                        className={`absolute inset-0 rounded-full border backdrop-blur-md ${isHomeHero
+                          ? "border-white/10 bg-white/[0.10]"
+                          : "border-black/[0.06] bg-black/[0.045] dark:border-white/[0.08] dark:bg-white/[0.06]"
+                          }`}
                       />
                     )}
                     <span
-                      className={`relative z-10 text-[10px] font-semibold uppercase tracking-[0.16em] transition-colors duration-300 ${
-                        isActive
-                          ? isHomeHero
-                            ? "text-amber-300"
-                            : "text-amber-700 dark:text-amber-400"
-                          : isHomeHero
+                      className={`relative z-10 text-[10px] font-semibold uppercase tracking-[0.16em] transition-colors duration-300 ${isActive
+                        ? isHomeHero
+                          ? "text-amber-300"
+                          : "text-amber-700 dark:text-amber-400"
+                        : isHomeHero
                           ? "text-white/75 group-hover:text-white"
                           : "text-neutral-700 group-hover:text-neutral-950 dark:text-neutral-300 dark:group-hover:text-white"
-                      }`}
+                        }`}
                     >
                       {link.name}
                     </span>
@@ -192,11 +179,10 @@ export function Navbar() {
                   mobileMenuOpen ? "Close navigation" : "Open navigation"
                 }
                 aria-expanded={mobileMenuOpen}
-                className={`flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-xl transition-all duration-300 active:scale-90 ${
-                  isHomeHero
-                    ? "border-white/20 bg-white/[0.08] text-white"
-                    : "border-black/10 bg-black/[0.04] text-neutral-900 dark:border-white/10 dark:bg-white/[0.05] dark:text-white"
-                }`}
+                className={`flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-xl transition-all duration-300 active:scale-90 ${isHomeHero
+                  ? "border-white/20 bg-white/[0.08] text-white"
+                  : "border-black/10 bg-black/[0.04] text-neutral-900 dark:border-white/10 dark:bg-white/[0.05] dark:text-white"
+                  }`}
               >
                 <AnimatePresence mode="wait" initial={false}>
                   {mobileMenuOpen ? (
@@ -252,7 +238,7 @@ export function Navbar() {
               <div className="pointer-events-none absolute inset-x-[10%] top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
 
               <div className="relative z-10">
-                <div className="mb-7 flex items-center justify-between">
+                {/* <div className="mb-7 flex items-center justify-between">
                   <div>
                     <p className="font-serif text-xl text-white">Shree Shyam</p>
                     <p className="mt-1 text-[8px] uppercase tracking-[0.3em] text-white/40">
@@ -262,7 +248,7 @@ export function Navbar() {
                   <div className="rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1.5 text-[8px] font-semibold uppercase tracking-[0.2em] text-amber-300">
                     Navigation
                   </div>
-                </div>
+                </div> */}
 
                 <nav className="flex flex-col">
                   {navLinks.map((link, index) => {
@@ -285,20 +271,18 @@ export function Navbar() {
                           className="group flex items-center justify-between border-b border-white/[0.07] py-4"
                         >
                           <span
-                            className={`font-serif text-[28px] leading-none tracking-wide transition-colors duration-300 ${
-                              isActive
-                                ? "text-amber-300"
-                                : "text-white/75 group-hover:text-white"
-                            }`}
+                            className={`font-serif text-[28px] leading-none tracking-wide transition-colors duration-300 ${isActive
+                              ? "text-amber-300"
+                              : "text-white/75 group-hover:text-white"
+                              }`}
                           >
                             {link.name}
                           </span>
                           <span
-                            className={`text-xs transition-all duration-300 ${
-                              isActive
-                                ? "translate-x-0 text-amber-300 opacity-100"
-                                : "-translate-x-2 text-white/30 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
-                            }`}
+                            className={`text-xs transition-all duration-300 ${isActive
+                              ? "translate-x-0 text-amber-300 opacity-100"
+                              : "-translate-x-2 text-white/30 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
+                              }`}
                           >
                             ↗
                           </span>
