@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Phone, Camera } from "lucide-react";
+import { Menu, X, Phone, Camera, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 const navLinks = [
@@ -17,9 +17,9 @@ const navLinks = [
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const pathname = usePathname();
 
   const isHomePage = pathname === "/";
   const isHomeHero = isHomePage && !scrolled;
@@ -56,42 +56,38 @@ export function Navbar() {
 
   return (
     <>
-      {/* ============================================================ DESKTOP / MAIN NAVBAR ============================================================ */}
-      <header className="fixed inset-x-0 top-0 z-[100] pointer-events-none">
-        <div className="mx-auto w-full max-w-[1500px] px-3 sm:px-5 lg:px-8 pt-3 sm:pt-4 lg:pt-5">
+      <header className="fixed inset-x-0 top-0 z-[100]">
+        <div className="mx-auto w-full max-w-[1500px] px-3 pt-3 sm:px-5 sm:pt-4 lg:px-8 lg:pt-5">
           <motion.div
             initial={{ opacity: 0, y: -18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className={`pointer-events-auto relative flex items-center justify-between rounded-[22px] sm:rounded-[26px] px-3 sm:px-4 lg:px-5 py-2.5 sm:py-3 transition-all duration-500 ease-out ${
+            className={`group relative flex min-h-[58px] sm:min-h-[62px] items-center justify-between overflow-hidden rounded-[22px] sm:rounded-[26px] px-3 sm:px-4 lg:px-5 py-2 transition-all duration-300 backdrop-blur-2xl backdrop-saturate-150 border ring-1 ring-inset ${
               isHomeHero
-                ? "bg-black/40 border-white/20 text-white shadow-[0_8px_40px_rgba(0,0,0,0.25)]"
-                : "bg-white/85 dark:bg-[#151513]/85 border-black/10 dark:border-white/10 shadow-[0_10px_45px_rgba(0,0,0,0.10)] dark:shadow-[0_10px_45px_rgba(0,0,0,0.30)]"
-            } backdrop-blur-2xl backdrop-saturate-150 border ring-1 ring-inset ring-white/10 dark:ring-white/5`}
+                ? "bg-black/40 border-white/20 ring-white/10 text-white shadow-[0_8px_40px_rgba(0,0,0,0.25)]"
+                : "bg-white/85 dark:bg-[#151513]/85 border-black/10 dark:border-white/10 ring-black/5 dark:ring-white/5 shadow-[0_10px_45px_rgba(0,0,0,0.10)] dark:shadow-[0_10px_45px_rgba(0,0,0,0.30)]"
+            }`}
           >
-            {/* ====================================================== LIQUID GLASS HIGHLIGHT ====================================================== */}
-            <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[22px] sm:rounded-[26px]">
-              <div className="absolute inset-x-[8%] top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent dark:via-white/20" />
-              <div className="absolute -top-16 left-[18%] h-28 w-40 rounded-full bg-white/20 blur-3xl dark:bg-white/[0.04]" />
-              <div className="absolute -right-10 top-0 h-20 w-32 rounded-full bg-amber-400/[0.07] blur-3xl" />
-            </div>
+            {/* Top glass specular reflection */}
+            <div className="pointer-events-none absolute inset-x-[8%] top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent dark:via-white/20" />
 
-            {/* ====================================================== LOGO ====================================================== */}
+            {/* Brand Logo */}
             <Link
               href="/"
               data-cursor
-              className="group relative z-10 flex shrink-0 items-center gap-2.5"
+              className="relative z-10 flex items-center gap-2.5"
             >
               <motion.div
                 whileHover={{ rotate: 8, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 300, damping: 18 }}
-                className={`flex h-9 w-9 items-center justify-center rounded-full border backdrop-blur-xl transition-all duration-500 ${
+                className={`flex h-9 w-9 items-center justify-center rounded-full border backdrop-blur-xl transition-all duration-300 ${
                   isHomeHero
                     ? "border-white/30 bg-white/15 text-amber-300"
-                    : "border-black/10 bg-black/[0.04] text-amber-700 dark:border-white/10 dark:bg-white/[0.05] dark:text-amber-400"
+                    : "border-black/10 bg-black/[0.04] text-amber-700 dark:border-white/10 dark:bg-white/[0.055] dark:text-amber-400"
                 }`}
               >
-                <Camera className="h-[17px] w-[17px]" strokeWidth={2} />
+                <Camera className="h-[17px] w-[17px]" strokeWidth={1.8} />
               </motion.div>
               <div className="block">
                 <span
@@ -115,12 +111,13 @@ export function Navbar() {
               </div>
             </Link>
 
-            {/* ====================================================== DESKTOP NAVIGATION ====================================================== */}
+            {/* Desktop Navigation */}
             <nav className="relative z-10 hidden lg:flex items-center gap-1">
               {navLinks.map((link) => {
                 const isActive =
                   pathname === link.href ||
                   (link.href !== "/" && pathname?.startsWith(`${link.href}/`));
+
                 return (
                   <Link
                     key={link.href}
@@ -128,9 +125,8 @@ export function Navbar() {
                     data-cursor
                     className="group relative px-3.5 py-2"
                   >
-                    {/* Active liquid pill */}
                     {isActive && (
-                      <motion.span
+                      <motion.div
                         layoutId="navbar-active-pill"
                         transition={{
                           type: "spring",
@@ -157,14 +153,12 @@ export function Navbar() {
                     >
                       {link.name}
                     </span>
-                    {/* Hover glow */}
-                    <span className="pointer-events-none absolute inset-x-3 -bottom-1 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-0 transition-all duration-300 group-hover:scale-x-100 group-hover:opacity-100" />
                   </Link>
                 );
               })}
             </nav>
 
-            {/* ====================================================== DESKTOP CTA ====================================================== */}
+            {/* Desktop CTA */}
             <div className="relative z-10 hidden lg:flex items-center">
               <Link
                 href="/contact"
@@ -181,7 +175,7 @@ export function Navbar() {
               </Link>
             </div>
 
-            {/* ====================================================== MOBILE MENU BUTTON ====================================================== */}
+            {/* Mobile Menu Button */}
             <div className="relative z-10 flex lg:hidden items-center">
               <button
                 type="button"
@@ -190,10 +184,10 @@ export function Navbar() {
                   mobileMenuOpen ? "Close navigation" : "Open navigation"
                 }
                 aria-expanded={mobileMenuOpen}
-                className={`flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-xl transition-all duration-300 active:scale-90 ${
+                className={`flex h-9 w-9 items-center justify-center rounded-full border backdrop-blur-xl transition-all duration-300 active:scale-90 ${
                   isHomeHero
                     ? "border-white/30 bg-white/15 text-white"
-                    : "border-black/10 bg-black/[0.04] text-neutral-900 dark:border-white/10 dark:bg-white/[0.05] dark:text-white"
+                    : "border-black/10 bg-black/[0.04] text-neutral-900 dark:border-white/10 dark:bg-white/[0.055] dark:text-white"
                 }`}
               >
                 <AnimatePresence mode="wait" initial={false}>
@@ -204,7 +198,7 @@ export function Navbar() {
                       animate={{ opacity: 1, rotate: 0, scale: 1 }}
                       exit={{ opacity: 0, rotate: 90, scale: 0.7 }}
                     >
-                      <X className="h-5 w-5" />
+                      <X className="h-4 w-4" />
                     </motion.div>
                   ) : (
                     <motion.div
@@ -213,7 +207,7 @@ export function Navbar() {
                       animate={{ opacity: 1, rotate: 0, scale: 1 }}
                       exit={{ opacity: 0, rotate: -90, scale: 0.7 }}
                     >
-                      <Menu className="h-5 w-5" />
+                      <Menu className="h-4 w-4" />
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -223,7 +217,7 @@ export function Navbar() {
         </div>
       </header>
 
-      {/* ============================================================ MOBILE LIQUID GLASS MENU ============================================================ */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -232,43 +226,43 @@ export function Navbar() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[90] lg:hidden bg-neutral-950/80 backdrop-blur-3xl"
           >
-            <div className="pointer-events-none absolute -top-32 -right-24 h-72 w-72 rounded-full bg-amber-400/10 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-32 -left-24 h-72 w-72 rounded-full bg-white/[0.04] blur-3xl" />
-
             <motion.div
-              initial={{ y: -30, opacity: 0, scale: 0.98 }}
+              initial={{ y: -20, opacity: 0, scale: 0.98 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: -20, opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-x-3 top-[88px] bottom-3 flex flex-col justify-between overflow-hidden rounded-[28px] border border-white/15 bg-neutral-950/90 p-6 shadow-[0_30px_100px_rgba(0,0,0,0.55)] backdrop-blur-3xl text-white"
+              exit={{ y: -15, opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-x-3 top-[78px] bottom-3 flex flex-col justify-between overflow-hidden rounded-[28px] border border-white/15 bg-neutral-950/90 p-6 shadow-[0_30px_100px_rgba(0,0,0,0.55)] backdrop-blur-3xl text-white"
             >
-              <div className="pointer-events-none absolute inset-x-[10%] top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-
               <div className="relative z-10">
                 <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-4">
                   <div>
-                    <p className="font-serif text-xl font-bold text-white">Shree Shyam</p>
-                    <p className="text-[9px] uppercase tracking-[0.3em] text-amber-300">Studio</p>
+                    <p className="font-serif text-xl font-bold text-white">
+                      Shree Shyam
+                    </p>
+                    <p className="text-[9px] uppercase tracking-[0.3em] text-amber-300">
+                      Studio
+                    </p>
                   </div>
                   <div className="rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-amber-300">
                     Navigation
                   </div>
                 </div>
 
-                <nav className="flex flex-col">
+                <nav className="flex flex-col space-y-1">
                   {navLinks.map((link, index) => {
                     const isActive =
                       pathname === link.href ||
-                      (link.href !== "/" && pathname?.startsWith(`${link.href}/`));
+                      (link.href !== "/" &&
+                        pathname?.startsWith(`${link.href}/`));
+
                     return (
                       <motion.div
                         key={link.href}
-                        initial={{ opacity: 0, x: -20 }}
+                        initial={{ opacity: 0, x: -15 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{
-                          delay: 0.06 + index * 0.05,
-                          duration: 0.35,
-                          ease: [0.22, 1, 0.36, 1],
+                          delay: 0.04 + index * 0.04,
+                          duration: 0.3,
                         }}
                       >
                         <Link
@@ -284,15 +278,13 @@ export function Navbar() {
                           >
                             {link.name}
                           </span>
-                          <span
-                            className={`text-xs transition-all duration-300 ${
+                          <ArrowUpRight
+                            className={`h-4 w-4 transition-all duration-300 ${
                               isActive
-                                ? "translate-x-0 text-amber-300 opacity-100"
-                                : "-translate-x-2 text-white/40 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
+                                ? "text-amber-300 opacity-100"
+                                : "text-white/40 opacity-50 group-hover:opacity-100"
                             }`}
-                          >
-                            ↗
-                          </span>
+                          />
                         </Link>
                       </motion.div>
                     );
@@ -300,18 +292,11 @@ export function Navbar() {
                 </nav>
               </div>
 
-              {/* Bottom CTA */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35, duration: 0.4 }}
-                className="relative z-10 pt-4"
-              >
+              <div className="relative z-10 pt-4 border-t border-white/10">
                 <Link
                   href="/contact"
                   className="group relative flex w-full items-center justify-center overflow-hidden rounded-full bg-amber-500 px-6 py-3.5 text-center text-xs font-bold uppercase tracking-[0.15em] text-neutral-950 shadow-xl shadow-amber-500/20 transition-all hover:bg-amber-400 active:scale-[0.98]"
                 >
-                  <span className="absolute inset-y-0 -left-[100%] w-[50%] skew-x-[-20deg] bg-white/30 blur-md transition-all duration-700 group-hover:left-[130%]" />
                   <span className="relative z-10">Book a Shoot</span>
                 </Link>
                 <div className="mt-3.5 flex items-center justify-center gap-2">
@@ -323,7 +308,7 @@ export function Navbar() {
                     097243 22046
                   </a>
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
           </motion.div>
         )}
