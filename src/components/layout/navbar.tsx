@@ -21,9 +21,13 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  const isHomePage = pathname === "/";
+  // Transparent header mode over dark hero image on home page
+  const isTransparentHero = isHomePage && !scrolled;
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
+      if (window.scrollY > 30) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -54,9 +58,9 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled
-          ? "header-glass border-b border-neutral-200/50 dark:border-neutral-800/60 py-3 shadow-xs"
+          ? "bg-white/95 dark:bg-neutral-950/95 backdrop-blur-md border-b border-neutral-200/80 dark:border-neutral-800/80 py-3.5 shadow-md"
           : "bg-transparent py-6"
       }`}
     >
@@ -64,35 +68,55 @@ export function Navbar() {
         {/* Brand Logo */}
         <Link
           href="/"
-          className="group flex items-center gap-2.5 tracking-widest text-foreground font-serif text-lg sm:text-xl font-bold uppercase transition-opacity"
+          className="group flex items-center gap-2.5 tracking-widest font-serif text-lg sm:text-xl font-bold uppercase transition-opacity"
           data-cursor
         >
-          <Camera className="w-5 h-5 text-amber-600 dark:text-amber-400 group-hover:rotate-12 transition-transform duration-300" />
-          <span className="bg-gradient-to-r from-neutral-900 via-amber-800 to-neutral-700 dark:from-neutral-100 dark:via-amber-300 dark:to-neutral-400 bg-clip-text text-transparent">
+          <Camera
+            className={`w-5 h-5 group-hover:rotate-12 transition-transform duration-300 ${
+              isTransparentHero ? "text-amber-400" : "text-amber-600 dark:text-amber-400"
+            }`}
+          />
+          <span
+            className={`font-serif font-bold tracking-wider ${
+              isTransparentHero
+                ? "text-white"
+                : "text-neutral-900 dark:text-white"
+            }`}
+          >
             Shree Shyam Studio
           </span>
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-7 text-xs uppercase tracking-widest font-medium">
+        <nav className="hidden lg:flex items-center gap-7 text-xs uppercase tracking-widest font-semibold">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
+
+            let linkColor = "";
+            if (isTransparentHero) {
+              linkColor = isActive
+                ? "text-amber-400 font-bold"
+                : "text-white/90 hover:text-amber-300 font-medium";
+            } else {
+              linkColor = isActive
+                ? "text-amber-700 dark:text-amber-400 font-bold"
+                : "text-neutral-800 dark:text-neutral-200 hover:text-amber-700 dark:hover:text-amber-400 font-medium";
+            }
+
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative py-1 transition-colors ${
-                  isActive
-                    ? "text-amber-700 dark:text-amber-400 font-semibold"
-                    : "text-neutral-600 dark:text-neutral-300 hover:text-amber-600 dark:hover:text-amber-400"
-                }`}
+                className={`relative py-1 transition-colors ${linkColor}`}
                 data-cursor
               >
                 {link.name}
                 {isActive && (
                   <motion.div
                     layoutId="activeNavIndicator"
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-amber-600 dark:bg-amber-400 rounded-full"
+                    className={`absolute bottom-0 left-0 right-0 h-[2px] rounded-full ${
+                      isTransparentHero ? "bg-amber-400" : "bg-amber-700 dark:bg-amber-400"
+                    }`}
                   />
                 )}
               </Link>
@@ -104,7 +128,11 @@ export function Navbar() {
         <div className="hidden lg:flex items-center gap-4">
           <Link
             href="/contact"
-            className="px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-amber-800 hover:bg-amber-900 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-neutral-950 transition-all shadow-sm hover:shadow-amber-500/20 active:scale-95"
+            className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all shadow-sm active:scale-95 ${
+              isTransparentHero
+                ? "bg-amber-500 hover:bg-amber-400 text-neutral-950 shadow-amber-500/20"
+                : "bg-amber-700 hover:bg-amber-800 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-neutral-950"
+            }`}
             data-cursor
             data-cursor-text="BOOK"
           >
@@ -116,7 +144,11 @@ export function Navbar() {
         <div className="flex lg:hidden items-center gap-3">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-full border border-neutral-300 dark:border-neutral-800 text-neutral-800 dark:text-neutral-200 focus:outline-none"
+            className={`p-2 rounded-full border focus:outline-none transition-colors ${
+              isTransparentHero
+                ? "border-white/40 text-white"
+                : "border-neutral-300 dark:border-neutral-800 text-neutral-900 dark:text-neutral-100"
+            }`}
             aria-label="Toggle Menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -132,7 +164,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 top-[60px] bg-neutral-900/95 dark:bg-neutral-950/98 backdrop-blur-xl z-50 flex flex-col justify-between p-8 text-neutral-100 lg:hidden overflow-y-auto"
+            className="fixed inset-0 top-[60px] bg-neutral-950/98 backdrop-blur-xl z-50 flex flex-col justify-between p-8 text-neutral-100 lg:hidden overflow-y-auto"
           >
             <div className="space-y-6 pt-4">
               <p className="text-[10px] tracking-widest uppercase text-amber-400 font-medium border-b border-neutral-800 pb-2">
