@@ -21,10 +21,6 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const isHomePage = pathname === "/";
-  // Transparent header mode over dark hero image on home page
-  const isTransparentHero = isHomePage && !scrolled;
-
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 30) {
@@ -58,9 +54,9 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
         scrolled
-          ? "bg-white/95 dark:bg-neutral-950/95 backdrop-blur-md border-b border-neutral-200/80 dark:border-neutral-800/80 py-3.5 shadow-md"
+          ? "bg-neutral-950/75 backdrop-blur-xl border-b border-white/10 py-3.5 shadow-2xl"
           : "bg-transparent py-6"
       }`}
     >
@@ -71,18 +67,8 @@ export function Navbar() {
           className="group flex items-center gap-2.5 tracking-widest font-serif text-lg sm:text-xl font-bold uppercase transition-opacity"
           data-cursor
         >
-          <Camera
-            className={`w-5 h-5 group-hover:rotate-12 transition-transform duration-300 ${
-              isTransparentHero ? "text-amber-400" : "text-amber-600 dark:text-amber-400"
-            }`}
-          />
-          <span
-            className={`font-serif font-bold tracking-wider ${
-              isTransparentHero
-                ? "text-white"
-                : "text-neutral-900 dark:text-white"
-            }`}
-          >
+          <Camera className="w-5 h-5 text-amber-400 group-hover:rotate-12 transition-transform duration-300" />
+          <span className="font-serif font-bold tracking-wider text-white">
             Shree Shyam Studio
           </span>
         </Link>
@@ -92,31 +78,22 @@ export function Navbar() {
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
 
-            let linkColor = "";
-            if (isTransparentHero) {
-              linkColor = isActive
-                ? "text-amber-400 font-bold"
-                : "text-white/90 hover:text-amber-300 font-medium";
-            } else {
-              linkColor = isActive
-                ? "text-amber-700 dark:text-amber-400 font-bold"
-                : "text-neutral-800 dark:text-neutral-200 hover:text-amber-700 dark:hover:text-amber-400 font-medium";
-            }
-
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative py-1 transition-colors ${linkColor}`}
+                className={`relative py-1 transition-colors ${
+                  isActive
+                    ? "text-amber-400 font-bold"
+                    : "text-white/85 hover:text-amber-300 font-medium"
+                }`}
                 data-cursor
               >
                 {link.name}
                 {isActive && (
                   <motion.div
                     layoutId="activeNavIndicator"
-                    className={`absolute bottom-0 left-0 right-0 h-[2px] rounded-full ${
-                      isTransparentHero ? "bg-amber-400" : "bg-amber-700 dark:bg-amber-400"
-                    }`}
+                    className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full bg-amber-400"
                   />
                 )}
               </Link>
@@ -128,11 +105,7 @@ export function Navbar() {
         <div className="hidden lg:flex items-center gap-4">
           <Link
             href="/contact"
-            className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all shadow-sm active:scale-95 ${
-              isTransparentHero
-                ? "bg-amber-500 hover:bg-amber-400 text-neutral-950 shadow-amber-500/20"
-                : "bg-amber-700 hover:bg-amber-800 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-neutral-950"
-            }`}
+            className="px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-amber-500 hover:bg-amber-400 text-neutral-950 shadow-md shadow-amber-500/20 active:scale-95"
             data-cursor
             data-cursor-text="BOOK"
           >
@@ -144,11 +117,7 @@ export function Navbar() {
         <div className="flex lg:hidden items-center gap-3">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`p-2 rounded-full border focus:outline-none transition-colors ${
-              isTransparentHero
-                ? "border-white/40 text-white"
-                : "border-neutral-300 dark:border-neutral-800 text-neutral-900 dark:text-neutral-100"
-            }`}
+            className="p-2 rounded-full border border-white/30 text-white focus:outline-none transition-colors"
             aria-label="Toggle Menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
