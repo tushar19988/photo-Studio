@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/animations/reveal";
-import { Camera, MapPin, Heart, ShieldCheck, Award, ArrowRight, Phone } from "lucide-react";
+import { MapPin, Phone } from "lucide-react";
 
 export const metadata = {
   title: "About Studio — Shree Shyam Studio Sanand",
@@ -145,24 +145,24 @@ export default function AboutPage() {
       </section>
 
       {/* STUDIO LOCATION INFO */}
-      <section className="py-20 bg-neutral-900 text-neutral-100">
+      <section className="py-20 bg-[#EFECE6] dark:bg-[#0A0A0A] text-neutral-900 dark:text-neutral-100 border-t border-neutral-300/80 dark:border-neutral-800/80 transition-colors">
         <div className="max-w-5xl mx-auto px-4 text-center">
-          <MapPin className="w-8 h-8 text-amber-400 mx-auto mb-4" />
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold mb-4">Visit Us at Our Studio</h2>
-          <p className="text-neutral-300 font-light text-base max-w-xl mx-auto mb-6">
+          <MapPin className="w-8 h-8 text-amber-700 dark:text-amber-400 mx-auto mb-4" />
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold mb-4 text-neutral-900 dark:text-white">Visit Us at Our Studio</h2>
+          <p className="text-neutral-700 dark:text-neutral-300 font-light text-base max-w-xl mx-auto mb-6">
             101 Shubham Elite, Eklingji Road, behind Somnath Bus Stand, Sanand, Gujarat 382110
           </p>
           <div className="flex items-center justify-center gap-4">
             <a
               href="tel:09724322046"
-              className="px-6 py-3 rounded-full bg-amber-500 text-neutral-950 font-semibold text-xs uppercase tracking-wider hover:bg-amber-400 transition-all flex items-center gap-2"
+              className="px-6 py-3 rounded-full bg-amber-700 hover:bg-amber-800 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-neutral-950 font-semibold text-xs uppercase tracking-wider transition-all flex items-center gap-2"
             >
               <Phone className="w-4 h-4" />
               Call Studio: 097243 22046
             </a>
             <Link
               href="/contact"
-              className="px-6 py-3 rounded-full border border-neutral-700 hover:border-amber-400 text-white font-semibold text-xs uppercase tracking-wider transition-all"
+              className="px-6 py-3 rounded-full border border-neutral-400 dark:border-neutral-700 hover:border-amber-600 text-neutral-800 dark:text-white font-semibold text-xs uppercase tracking-wider transition-all"
             >
               Get Directions
             </Link>

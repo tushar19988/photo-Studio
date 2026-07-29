@@ -6,7 +6,7 @@ import { AmbientParticles } from "@/components/three/ambient-particles";
 import { Reveal } from "@/components/animations/reveal";
 import { HomePortfolio } from "@/components/portfolio/home-portfolio";
 import { FAQAccordion } from "@/components/ui/faq-accordion";
-import { ArrowRight, Star, Camera, Phone, Calendar, Heart, ShieldCheck, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Star, Phone, Sparkles, CheckCircle2 } from "lucide-react";
 
 export const revalidate = 60; // Revalidate page every 60s
 
@@ -227,47 +227,47 @@ export default async function HomePage() {
       </section>
 
       {/* SECTION 5: WHY SHREE SHYAM STUDIO */}
-      <section className="py-24 bg-neutral-900 text-neutral-100 relative overflow-hidden">
+      <section className="py-24 bg-[#EFECE6] dark:bg-[#0A0A0A] text-neutral-900 dark:text-neutral-100 border-y border-neutral-300/80 dark:border-neutral-800/80 relative overflow-hidden transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <Reveal variant="fadeUp">
-              <span className="text-xs uppercase tracking-widest font-semibold text-amber-400 block mb-3">
+              <span className="text-xs uppercase tracking-widest font-semibold text-amber-800 dark:text-amber-400 block mb-3">
                 Why Families Trust Us
               </span>
-              <h2 className="font-serif text-3xl sm:text-5xl font-bold leading-tight mb-6">
+              <h2 className="font-serif text-3xl sm:text-5xl font-bold leading-tight mb-6 text-neutral-900 dark:text-white">
                 Premium Quality, Emotionally Grounded & Reliable.
               </h2>
-              <p className="text-neutral-300 font-light text-base leading-relaxed mb-8">
+              <p className="text-neutral-700 dark:text-neutral-300 font-light text-base leading-relaxed mb-8">
                 We understand that wedding photographs become family heirlooms. At Shree Shyam Studio, we merge state-of-the-art photography equipment with a gentle, unobtrusive storytelling approach.
               </p>
 
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
-                  <CheckCircle2 className="w-5 h-5 text-amber-400 shrink-0 mt-1" />
+                  <CheckCircle2 className="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0 mt-1" />
                   <div>
-                    <h4 className="font-semibold text-white">Full Event Coverage</h4>
-                    <p className="text-xs text-neutral-400 font-light">From morning Haldi preparations to late-night Varmala and Reception.</p>
+                    <h4 className="font-semibold text-neutral-900 dark:text-white">Full Event Coverage</h4>
+                    <p className="text-xs text-neutral-600 dark:text-neutral-400 font-light">From morning Haldi preparations to late-night Varmala and Reception.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <CheckCircle2 className="w-5 h-5 text-amber-400 shrink-0 mt-1" />
+                  <CheckCircle2 className="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0 mt-1" />
                   <div>
-                    <h4 className="font-semibold text-white">High Resolution Master Color Grading</h4>
-                    <p className="text-xs text-neutral-400 font-light">Custom color tones tailored for a rich, warm, photographic feel.</p>
+                    <h4 className="font-semibold text-neutral-900 dark:text-white">High Resolution Master Color Grading</h4>
+                    <p className="text-xs text-neutral-600 dark:text-neutral-400 font-light">Custom color tones tailored for a rich, warm, photographic feel.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <CheckCircle2 className="w-5 h-5 text-amber-400 shrink-0 mt-1" />
+                  <CheckCircle2 className="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0 mt-1" />
                   <div>
-                    <h4 className="font-semibold text-white">Sanand & Gujarat Local Expertise</h4>
-                    <p className="text-xs text-neutral-400 font-light">Located right in Sanand (101 Shubham Elite) for easy consultation and venue visits.</p>
+                    <h4 className="font-semibold text-neutral-900 dark:text-white">Sanand & Gujarat Local Expertise</h4>
+                    <p className="text-xs text-neutral-600 dark:text-neutral-400 font-light">Located right in Sanand (101 Shubham Elite) for easy consultation and venue visits.</p>
                   </div>
                 </div>
               </div>
             </Reveal>
 
             <Reveal variant="scale" delay={0.2}>
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-neutral-800">
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-neutral-300/80 dark:border-neutral-800">
                 <Image
                   src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1200&auto=format&fit=crop"
                   alt="Shree Shyam Studio Photography Process"

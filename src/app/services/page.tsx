@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { Reveal } from "@/components/animations/reveal";
-import { CheckCircle2, ArrowRight, Camera, Sparkles } from "lucide-react";
+import { CheckCircle2, ArrowRight } from "lucide-react";
 
 export const metadata = {
   title: "Services & Starting Prices — Shree Shyam Studio Sanand",
@@ -118,15 +118,15 @@ export default async function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-neutral-900 text-white text-center">
+      <section className="py-16 bg-[#EFECE6] dark:bg-[#0A0A0A] text-neutral-900 dark:text-white border-t border-neutral-300/80 dark:border-neutral-800/80 text-center transition-colors">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="font-serif text-3xl font-bold mb-3">Need a Custom Event Package?</h2>
-          <p className="text-neutral-400 text-sm font-light mb-6">
+          <h2 className="font-serif text-3xl font-bold mb-3 text-neutral-900 dark:text-white">Need a Custom Event Package?</h2>
+          <p className="text-neutral-700 dark:text-neutral-400 text-sm font-light mb-6">
             We tailor custom packages for multi-day weddings, destination shoots, and corporate events.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-amber-500 text-neutral-950 font-semibold text-xs uppercase tracking-wider hover:bg-amber-400 transition-all"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-amber-700 hover:bg-amber-800 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-neutral-950 font-semibold text-xs uppercase tracking-wider transition-all shadow-md active:scale-95"
           >
             <span>Request Custom Quote</span>
             <ArrowRight className="w-4 h-4" />
