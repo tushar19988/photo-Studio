@@ -1,0 +1,207 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+}
+
+enum EnquiryStatus {
+  NEW
+  CONTACTED
+  FOLLOW_UP
+  BOOKED
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id           String    @id @default(uuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  role         Role      @default(ADMIN)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  lastLoginAt  DateTime?
+}
+
+model PortfolioCategory {
+  id          String             @id @default(uuid())
+  name        String
+  slug        String             @unique
+  description String?
+  sortOrder   Int                @default(0)
+  projects    PortfolioProject[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+}
+
+model PortfolioProject {
+  id          String            @id @default(uuid())
+  title       String
+  slug        String            @unique
+  categoryId  String
+  category    PortfolioCategory @relation(fields: [categoryId], references: [id])
+  location    String?
+  eventDate   DateTime?
+  description String?
+  coverImage  String
+  featured    Boolean           @default(false)
+  published   Boolean           @default(true)
+  sortOrder   Int               @default(0)
+  images      PortfolioImage[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
+
+model PortfolioImage {
+  id        String           @id @default(uuid())
+  projectId String
+  project   PortfolioProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  url       String
+  alt       String?
+  caption   String?
+  width     Int?
+  height    Int?
+  sortOrder Int              @default(0)
+  createdAt DateTime         @default(now())
+}
+
+model Service {
+  id               String            @id @default(uuid())
+  name             String
+  slug             String            @unique
+  shortDescription String
+  description      String
+  startingPrice    Int               @default(0)
+  heroImage        String?
+  featured         Boolean           @default(true)
+  published        Boolean           @default(true)
+  sortOrder        Int               @default(0)
+  packages         Package[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+model Package {
+  id            String           @id @default(uuid())
+  serviceId     String
+  service       Service          @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  name          String
+  startingPrice Int
+  description   String?
+  published     Boolean          @default(true)
+  sortOrder     Int              @default(0)
+  features      PackageFeature[]
+  enquiries     Enquiry[]
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+}
+
+model PackageFeature {
+  id        String   @id @default(uuid())
+  packageId String
+  package   Package  @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  text      String
+  included  Boolean  @default(true)
+  sortOrder Int      @default(0)
+}
+
+model Testimonial {
+  id         String   @id @default(uuid())
+  clientName String
+  review     String
+  eventType  String
+  location   String?
+  rating     Int      @default(5)
+  photo      String?
+  published  Boolean  @default(true)
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Enquiry {
+  id        String        @id @default(uuid())
+  name      String
+  phone     String
+  email     String?
+  eventType String
+  eventDate DateTime?
+  location  String?
+  guests    String?
+  budget    String?
+  packageId String?
+  package   Package?      @relation(fields: [packageId], references: [id], onDelete: SetNull)
+  message   String?
+  status    EnquiryStatus @default(NEW)
+  notes     String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model BlogCategory {
+  id        String     @id @default(uuid())
+  name      String
+  slug      String     @unique
+  posts     BlogPost[]
+  createdAt DateTime   @default(now())
+}
+
+model BlogPost {
+  id             String       @id @default(uuid())
+  title          String
+  slug           String       @unique
+  excerpt        String
+  content        String
+  coverImage     String
+  author         String       @default("Shree Shyam Studio Team")
+  categoryId     String
+  category       BlogCategory @relation(fields: [categoryId], references: [id])
+  seoTitle       String?
+  seoDescription String?
+  canonicalUrl   String?
+  published      Boolean      @default(true)
+  publishedAt    DateTime     @default(now())
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model Media {
+  id        String   @id @default(uuid())
+  filename  String
+  url       String
+  type      String   @default("image")
+  mimeType  String?
+  size      Int?
+  width     Int?
+  height    Int?
+  alt       String?
+  createdAt DateTime @default(now())
+}
+
+model SiteSettings {
+  id             String   @id @default("default")
+  studioName     String   @default("Shree Shyam Studio")
+  address        String   @default("101 Shubham Elite, Eklingji Road, behind Somnath Bus Stand, Sanand, Gujarat 382110")
+  phone          String   @default("097243 22046")
+  email          String   @default("contact@shreeshyamstudio.com")
+  whatsappNumber String   @default("919724322046")
+  googleMapsUrl  String?
+  instagramUrl   String?
+  facebookUrl    String?
+  youtubeUrl     String?
+  bannerNotice   String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
