@@ -18,20 +18,26 @@ const navLinks = [
 
 export function Navbar() {
   const pathname = usePathname();
+
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const isHomePage = pathname === "/";
-  const isHomeHero = isHomePage && !scrolled;
+  const isHome = pathname === "/";
+  const isHero = isHome && !scrolled;
 
   useEffect(() => {
-    const handleScroll = () => {
+    const onScroll = () => {
       setScrolled(window.scrollY > 24);
     };
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    onScroll();
+
+    window.addEventListener("scroll", onScroll, {
+      passive: true,
+    });
+
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
@@ -45,6 +51,7 @@ export function Navbar() {
     } else {
       document.body.style.overflow = "";
     }
+
     return () => {
       document.body.style.overflow = "";
     };
@@ -56,100 +63,329 @@ export function Navbar() {
 
   return (
     <>
+      {/* =========================================================
+          NAVBAR
+      ========================================================== */}
+
       <header className="fixed inset-x-0 top-0 z-[100]">
         <div className="mx-auto w-full max-w-[1500px] px-3 pt-3 sm:px-5 sm:pt-4 lg:px-8 lg:pt-5">
           <motion.div
-            initial={{ opacity: 0, y: -18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className={`group relative flex min-h-[58px] sm:min-h-[62px] items-center justify-between overflow-hidden rounded-[22px] sm:rounded-[26px] px-3 sm:px-4 lg:px-5 py-2 transition-all duration-300 backdrop-blur-2xl backdrop-saturate-150 border ring-1 ring-inset ${
-              isHomeHero
-                ? "bg-black/40 border-white/20 ring-white/10 text-white shadow-[0_8px_40px_rgba(0,0,0,0.25)]"
-                : "bg-white/85 dark:bg-[#151513]/85 border-black/10 dark:border-white/10 ring-black/5 dark:ring-white/5 shadow-[0_10px_45px_rgba(0,0,0,0.10)] dark:shadow-[0_10px_45px_rgba(0,0,0,0.30)]"
-            }`}
-          >
-            {/* Top glass specular reflection */}
-            <div className="pointer-events-none absolute inset-x-[8%] top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent dark:via-white/20" />
+            initial={{
+              opacity: 0,
+              y: -18,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 0.65,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className={`
+              group relative
 
-            {/* Brand Logo */}
+              flex
+              min-h-[58px]
+              items-center
+              justify-between
+
+              rounded-[22px]
+              sm:min-h-[62px]
+              sm:rounded-[25px]
+
+              px-3
+              sm:px-4
+              lg:px-5
+
+              border
+
+              backdrop-blur-[28px]
+              backdrop-saturate-[180%]
+
+              transition-all
+              duration-500
+
+              ${isHero
+                ? `
+                    border-white/[0.16]
+                    bg-white/[0.055]
+
+                    shadow-[0_12px_50px_rgba(0,0,0,0.16)]
+                    ring-1
+                    ring-inset
+                    ring-white/[0.08]
+
+                    dark:border-white/[0.13]
+                    dark:bg-black/[0.10]
+                  `
+                : `
+                    border-black/[0.08]
+                    bg-white/[0.62]
+
+                    shadow-[0_14px_50px_rgba(0,0,0,0.10)]
+                    ring-1
+                    ring-inset
+                    ring-white/[0.65]
+
+                    dark:border-white/[0.10]
+                    dark:bg-[#11110f]/[0.68]
+
+                    dark:shadow-[0_18px_60px_rgba(0,0,0,0.38)]
+                    dark:ring-white/[0.045]
+                  `
+              }
+            `}
+          >
+            {/* =====================================================
+                LIQUID GLASS SPECULAR LAYERS
+            ====================================================== */}
+
+            <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[22px] sm:rounded-[25px]">
+              {/* Top glass reflection */}
+              <div
+                className={`
+                  absolute
+                  left-[8%]
+                  right-[8%]
+                  top-0
+                  h-px
+                  bg-gradient-to-r
+                  from-transparent
+                  via-white
+                  to-transparent
+
+                  ${isHero
+                    ? "opacity-45"
+                    : "opacity-70 dark:opacity-20"
+                  }
+                `}
+              />
+
+              {/* Large soft white reflection */}
+              <div
+                className="
+                  absolute
+                  -left-[15%]
+                  -top-[120%]
+                  h-[260%]
+                  w-[45%]
+                  rotate-[18deg]
+                  bg-gradient-to-r
+                  from-transparent
+                  via-white/[0.10]
+                  to-transparent
+                  blur-2xl
+                  transition-transform
+                  duration-[1400ms]
+                  group-hover:translate-x-[230%]
+                "
+              />
+
+              {/* Amber atmospheric reflection */}
+              <div
+                className="
+                  absolute
+                  -right-20
+                  -top-16
+                  h-40
+                  w-48
+                  rounded-full
+                  bg-amber-400/[0.075]
+                  blur-[60px]
+
+                  dark:bg-amber-400/[0.085]
+                "
+              />
+
+              {/* Bottom glass depth */}
+              <div
+                className="
+                  absolute
+                  inset-x-0
+                  bottom-0
+                  h-1/3
+                  bg-gradient-to-t
+                  from-black/[0.025]
+                  to-transparent
+                  dark:from-black/[0.18]
+                "
+              />
+            </div>
+
+            {/* =====================================================
+                BRAND
+            ====================================================== */}
+
             <Link
               href="/"
               data-cursor
-              className="relative z-10 flex items-center gap-2.5"
+              className="relative z-10 flex min-w-0 items-center gap-2.5"
             >
+              {/* Camera glass button */}
               <motion.div
-                whileHover={{ rotate: 8, scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 300, damping: 18 }}
-                className={`flex h-9 w-9 items-center justify-center rounded-full border backdrop-blur-xl transition-all duration-300 ${
-                  isHomeHero
-                    ? "border-white/30 bg-white/15 text-amber-300"
-                    : "border-black/10 bg-black/[0.04] text-amber-700 dark:border-white/10 dark:bg-white/[0.055] dark:text-amber-400"
-                }`}
+                whileHover={{
+                  scale: 1.05,
+                  rotate: 5,
+                }}
+                whileTap={{
+                  scale: 0.94,
+                }}
+                className={`
+                  flex
+                  h-9
+                  w-9
+                  shrink-0
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+
+                  backdrop-blur-xl
+
+                  transition-all
+                  duration-300
+
+                  ${isHero
+                    ? `
+                        border-white/[0.20]
+                        bg-white/[0.08]
+                        text-amber-300
+                      `
+                    : `
+                        border-black/[0.08]
+                        bg-black/[0.035]
+                        text-amber-700
+
+                        dark:border-white/[0.10]
+                        dark:bg-white/[0.055]
+                        dark:text-amber-400
+                      `
+                  }
+                `}
               >
-                <Camera className="h-[17px] w-[17px]" strokeWidth={1.8} />
+                <Camera
+                  className="h-[17px] w-[17px]"
+                  strokeWidth={1.8}
+                />
               </motion.div>
-              <div className="block">
+
+              {/* Brand text */}
+              <div className="min-w-0">
                 <span
-                  className={`block font-serif text-[14px] sm:text-[15px] font-bold uppercase tracking-[0.14em] transition-colors duration-300 ${
-                    isHomeHero
+                  className={`
+                    block
+                    truncate
+                    font-serif
+                    text-[13px]
+                    font-medium
+                    uppercase
+                    tracking-[0.12em]
+                    sm:text-[15px]
+
+                    ${isHero
                       ? "text-white"
-                      : "text-neutral-900 dark:text-white"
-                  }`}
+                      : "text-neutral-950 dark:text-white"
+                    }
+                  `}
                 >
                   Shree Shyam
                 </span>
+
                 <span
-                  className={`block text-[8px] font-medium uppercase tracking-[0.32em] transition-colors duration-300 ${
-                    isHomeHero
-                      ? "text-amber-200/80"
-                      : "text-neutral-600 dark:text-neutral-400"
-                  }`}
+                  className={`
+                    block
+                    text-[7px]
+                    font-medium
+                    uppercase
+                    tracking-[0.34em]
+
+                    ${isHero
+                      ? "text-white/45"
+                      : "text-neutral-500 dark:text-neutral-400"
+                    }
+                  `}
                 >
                   Studio
                 </span>
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="relative z-10 hidden lg:flex items-center gap-1">
+            {/* =====================================================
+                DESKTOP NAV
+            ====================================================== */}
+
+            <nav className="relative z-10 hidden items-center lg:flex">
               {navLinks.map((link) => {
-                const isActive =
+                const active =
                   pathname === link.href ||
-                  (link.href !== "/" && pathname?.startsWith(`${link.href}/`));
+                  (link.href !== "/" &&
+                    pathname?.startsWith(`${link.href}/`));
 
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
                     data-cursor
-                    className="group relative px-3.5 py-2"
+                    className="group/link relative px-3 py-2.5"
                   >
-                    {isActive && (
+                    {/* Active glass pill */}
+                    {active && (
                       <motion.div
-                        layoutId="navbar-active-pill"
+                        layoutId="active-liquid-pill"
                         transition={{
                           type: "spring",
-                          stiffness: 380,
-                          damping: 30,
+                          stiffness: 420,
+                          damping: 32,
                         }}
-                        className={`absolute inset-0 rounded-full border backdrop-blur-md ${
-                          isHomeHero
-                            ? "border-white/20 bg-white/15"
-                            : "border-black/10 bg-black/[0.06] dark:border-white/10 dark:bg-white/10"
-                        }`}
+                        className={`
+                          absolute
+                          inset-0
+                          rounded-full
+                          border
+                          backdrop-blur-xl
+
+                          ${isHero
+                            ? `
+                                border-white/[0.13]
+                                bg-white/[0.10]
+                                shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]
+                              `
+                            : `
+                                border-black/[0.06]
+                                bg-black/[0.045]
+
+                                dark:border-white/[0.08]
+                                dark:bg-white/[0.055]
+
+                                shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]
+                                dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]
+                              `
+                          }
+                        `}
                       />
                     )}
+
                     <span
-                      className={`relative z-10 text-[11px] font-bold uppercase tracking-[0.16em] transition-colors duration-300 ${
-                        isActive
-                          ? isHomeHero
+                      className={`
+                        relative
+                        z-10
+                        text-[10px]
+                        font-semibold
+                        uppercase
+                        tracking-[0.15em]
+                        transition-colors
+                        duration-300
+
+                        ${active
+                          ? isHero
                             ? "text-amber-300"
                             : "text-amber-700 dark:text-amber-400"
-                          : isHomeHero
-                          ? "text-white/90 group-hover:text-white"
-                          : "text-neutral-800 group-hover:text-neutral-950 dark:text-neutral-200 dark:group-hover:text-white"
-                      }`}
+                          : isHero
+                            ? "text-white/75 group-hover/link:text-white"
+                            : "text-neutral-700 group-hover/link:text-neutral-950 dark:text-neutral-300 dark:group-hover/link:text-white"
+                        }
+                      `}
                     >
                       {link.name}
                     </span>
@@ -158,132 +394,407 @@ export function Navbar() {
               })}
             </nav>
 
-            {/* Desktop CTA */}
-            <div className="relative z-10 hidden lg:flex items-center">
-              <Link
-                href="/contact"
-                data-cursor
-                data-cursor-text="BOOK"
-                className={`group relative overflow-hidden rounded-full px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.16em] transition-all duration-300 hover:-translate-y-0.5 shadow-md active:scale-95 ${
-                  isHomeHero
-                    ? "bg-amber-500 hover:bg-amber-400 text-neutral-950 shadow-amber-500/20"
-                    : "bg-amber-700 hover:bg-amber-800 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-neutral-950"
-                }`}
-              >
-                <span className="absolute inset-y-0 -left-[100%] w-[60%] skew-x-[-20deg] bg-white/25 blur-md transition-all duration-700 group-hover:left-[130%]" />
-                <span className="relative z-10">Book a Shoot</span>
-              </Link>
-            </div>
+            {/* =====================================================
+                DESKTOP CTA
+            ====================================================== */}
 
-            {/* Mobile Menu Button */}
-            <div className="relative z-10 flex lg:hidden items-center">
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen((prev) => !prev)}
-                aria-label={
-                  mobileMenuOpen ? "Close navigation" : "Open navigation"
+            <Link
+              href="/contact"
+              data-cursor
+              data-cursor-text="BOOK"
+              className="
+                group/cta
+                relative
+                z-10
+                hidden
+                overflow-hidden
+                rounded-full
+                border
+                border-amber-400/30
+                bg-amber-400
+                px-5
+                py-2.5
+                text-[10px]
+                font-bold
+                uppercase
+                tracking-[0.16em]
+                text-neutral-950
+                shadow-[0_6px_25px_rgba(245,158,11,0.18)]
+                transition-all
+                duration-300
+                hover:-translate-y-0.5
+                hover:bg-amber-300
+                hover:shadow-[0_10px_35px_rgba(245,158,11,0.25)]
+                lg:block
+              "
+            >
+              <span
+                className="
+                  absolute
+                  inset-y-0
+                  -left-[100%]
+                  w-[55%]
+                  skew-x-[-20deg]
+                  bg-white/30
+                  blur-md
+                  transition-all
+                  duration-700
+                  group-hover/cta:left-[130%]
+                "
+              />
+
+              <span className="relative z-10">
+                Book a Shoot
+              </span>
+            </Link>
+
+            {/* =====================================================
+                MOBILE BUTTON
+            ====================================================== */}
+
+            <button
+              type="button"
+              onClick={() =>
+                setMobileMenuOpen((previous) => !previous)
+              }
+              aria-label={
+                mobileMenuOpen
+                  ? "Close menu"
+                  : "Open menu"
+              }
+              aria-expanded={mobileMenuOpen}
+              className={`
+                relative
+                z-10
+                flex
+                h-9
+                w-9
+                shrink-0
+                items-center
+                justify-center
+                rounded-full
+                border
+
+                backdrop-blur-xl
+
+                transition-all
+                duration-300
+                active:scale-90
+
+                lg:hidden
+
+                ${isHero
+                  ? `
+                      border-white/[0.18]
+                      bg-white/[0.08]
+                      text-white
+                    `
+                  : `
+                      border-black/[0.08]
+                      bg-black/[0.035]
+                      text-neutral-900
+
+                      dark:border-white/[0.10]
+                      dark:bg-white/[0.055]
+                      dark:text-white
+                    `
                 }
-                aria-expanded={mobileMenuOpen}
-                className={`flex h-9 w-9 items-center justify-center rounded-full border backdrop-blur-xl transition-all duration-300 active:scale-90 ${
-                  isHomeHero
-                    ? "border-white/30 bg-white/15 text-white"
-                    : "border-black/10 bg-black/[0.04] text-neutral-900 dark:border-white/10 dark:bg-white/[0.055] dark:text-white"
-                }`}
-              >
-                <AnimatePresence mode="wait" initial={false}>
-                  {mobileMenuOpen ? (
-                    <motion.div
-                      key="close"
-                      initial={{ opacity: 0, rotate: -90, scale: 0.7 }}
-                      animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                      exit={{ opacity: 0, rotate: 90, scale: 0.7 }}
-                    >
-                      <X className="h-4 w-4" />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="menu"
-                      initial={{ opacity: 0, rotate: 90, scale: 0.7 }}
-                      animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                      exit={{ opacity: 0, rotate: -90, scale: 0.7 }}
-                    >
-                      <Menu className="h-4 w-4" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </button>
-            </div>
+              `}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {mobileMenuOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{
+                      opacity: 0,
+                      rotate: -90,
+                      scale: 0.7,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      rotate: 0,
+                      scale: 1,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      rotate: 90,
+                      scale: 0.7,
+                    }}
+                  >
+                    <X className="h-[18px] w-[18px]" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{
+                      opacity: 0,
+                      rotate: 90,
+                      scale: 0.7,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      rotate: 0,
+                      scale: 1,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      rotate: -90,
+                      scale: 0.7,
+                    }}
+                  >
+                    <Menu className="h-[18px] w-[18px]" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </button>
           </motion.div>
         </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* ===========================================================
+          MOBILE MENU
+      ============================================================ */}
+
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[90] lg:hidden bg-neutral-950/80 backdrop-blur-3xl"
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            exit={{
+              opacity: 0,
+            }}
+            className="
+              fixed
+              inset-0
+              z-[90]
+              lg:hidden
+              bg-black/[0.08]
+              backdrop-blur-xl
+              dark:bg-black/[0.58]
+            "
           >
-            <motion.div
-              initial={{ y: -20, opacity: 0, scale: 0.98 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: -15, opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-x-3 top-[78px] bottom-3 flex flex-col justify-between overflow-hidden rounded-[28px] border border-white/15 bg-neutral-950/90 p-6 shadow-[0_30px_100px_rgba(0,0,0,0.55)] backdrop-blur-3xl text-white"
-            >
-              <div className="relative z-10">
-                <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-4">
-                  <div>
-                    <p className="font-serif text-xl font-bold text-white">
-                      Shree Shyam
-                    </p>
-                    <p className="text-[9px] uppercase tracking-[0.3em] text-amber-300">
-                      Studio
-                    </p>
-                  </div>
-                  <div className="rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-amber-300">
-                    Navigation
-                  </div>
-                </div>
+            {/* Ambient light */}
+            <div
+              className="
+                pointer-events-none
+                absolute
+                -right-28
+                top-10
+                h-80
+                w-80
+                rounded-full
+                bg-amber-400/[0.10]
+                blur-[100px]
+              "
+            />
 
-                <nav className="flex flex-col space-y-1">
+            <div
+              className="
+                pointer-events-none
+                absolute
+                -bottom-32
+                -left-32
+                h-80
+                w-80
+                rounded-full
+                bg-white/[0.08]
+                blur-[100px]
+                dark:bg-white/[0.025]
+              "
+            />
+
+            {/* =====================================================
+                MOBILE GLASS PANEL
+            ====================================================== */}
+
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: -18,
+                scale: 0.97,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+              }}
+              exit={{
+                opacity: 0,
+                y: -15,
+                scale: 0.98,
+              }}
+              transition={{
+                duration: 0.45,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="
+                absolute
+                inset-x-3
+                top-[78px]
+                bottom-3
+
+                flex
+                min-h-0
+                flex-col
+
+                overflow-hidden
+
+                rounded-[28px]
+
+                border
+                border-white/[0.20]
+
+                bg-white/[0.13]
+
+                shadow-[0_30px_100px_rgba(0,0,0,0.30)]
+
+                backdrop-blur-[40px]
+                backdrop-saturate-[180%]
+
+                ring-1
+                ring-inset
+                ring-white/[0.12]
+
+                dark:border-white/[0.12]
+                dark:bg-[#141412]/[0.58]
+                dark:shadow-[0_30px_100px_rgba(0,0,0,0.60)]
+                dark:ring-white/[0.045]
+              "
+            >
+              {/* Glass highlights */}
+              <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[28px]">
+                <div
+                  className="
+                    absolute
+                    left-[10%]
+                    right-[10%]
+                    top-0
+                    h-px
+                    bg-gradient-to-r
+                    from-transparent
+                    via-white
+                    to-transparent
+                    opacity-70
+                    dark:opacity-25
+                  "
+                />
+
+                <div
+                  className="
+                    absolute
+                    -right-24
+                    -top-20
+                    h-60
+                    w-60
+                    rounded-full
+                    bg-amber-400/[0.10]
+                    blur-[80px]
+                  "
+                />
+
+                <div
+                  className="
+                    absolute
+                    -left-20
+                    bottom-20
+                    h-48
+                    w-48
+                    rounded-full
+                    bg-white/[0.08]
+                    blur-[70px]
+                    dark:bg-white/[0.025]
+                  "
+                />
+              </div>
+
+              {/* ===================================================
+                  SCROLLABLE LINKS
+              ==================================================== */}
+
+              <div
+                className="
+                  relative
+                  z-10
+                  min-h-0
+                  flex-1
+                  overflow-y-auto
+                  overscroll-contain
+                  px-6
+                  [scrollbar-width:none]
+                  [&::-webkit-scrollbar]:hidden
+                "
+              >
+                <nav>
                   {navLinks.map((link, index) => {
-                    const isActive =
+                    const active =
                       pathname === link.href ||
                       (link.href !== "/" &&
-                        pathname?.startsWith(`${link.href}/`));
+                        pathname?.startsWith(
+                          `${link.href}/`
+                        ));
 
                     return (
                       <motion.div
                         key={link.href}
-                        initial={{ opacity: 0, x: -15 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        initial={{
+                          opacity: 0,
+                          x: -16,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          x: 0,
+                        }}
                         transition={{
-                          delay: 0.04 + index * 0.04,
-                          duration: 0.3,
+                          delay: 0.05 + index * 0.045,
+                          duration: 0.35,
                         }}
                       >
                         <Link
                           href={link.href}
-                          className="group flex items-center justify-between border-b border-white/10 py-3.5"
+                          className="
+                            group
+                            flex
+                            min-h-[58px]
+                            items-center
+                            justify-between
+                            border-b
+                            border-black/[0.08]
+                            dark:border-white/[0.075]
+                          "
                         >
                           <span
-                            className={`font-serif text-[24px] leading-none tracking-wide transition-colors duration-300 ${
-                              isActive
-                                ? "text-amber-300 font-bold"
-                                : "text-white/85 group-hover:text-white"
-                            }`}
+                            className={`
+                              font-serif
+                              text-[25px]
+                              leading-none
+                              transition-colors
+                              duration-300
+
+                              ${active
+                                ? "text-amber-600 dark:text-amber-300"
+                                : "text-neutral-700 group-hover:text-neutral-950 dark:text-white/75 dark:group-hover:text-white"
+                              }
+                            `}
                           >
                             {link.name}
                           </span>
+
                           <ArrowUpRight
-                            className={`h-4 w-4 transition-all duration-300 ${
-                              isActive
-                                ? "text-amber-300 opacity-100"
-                                : "text-white/40 opacity-50 group-hover:opacity-100"
-                            }`}
+                            className={`
+                              h-[17px]
+                              w-[17px]
+                              transition-all
+                              duration-300
+
+                              ${active
+                                ? "translate-x-0 text-amber-500 opacity-100"
+                                : "-translate-x-2 text-neutral-400 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 dark:text-white/40"
+                              }
+                            `}
                           />
                         </Link>
                       </motion.div>
@@ -292,18 +803,83 @@ export function Navbar() {
                 </nav>
               </div>
 
-              <div className="relative z-10 pt-4 border-t border-white/10">
+              {/* ===================================================
+                  MOBILE CTA
+              ==================================================== */}
+
+              <div
+                className="
+                  relative
+                  z-10
+                  shrink-0
+                  border-t
+                  border-black/[0.07]
+                  bg-white/[0.08]
+                  px-5
+                  pb-[calc(16px+env(safe-area-inset-bottom))]
+                  pt-4
+                  dark:border-white/[0.07]
+                  dark:bg-black/[0.10]
+                "
+              >
                 <Link
                   href="/contact"
-                  className="group relative flex w-full items-center justify-center overflow-hidden rounded-full bg-amber-500 px-6 py-3.5 text-center text-xs font-bold uppercase tracking-[0.15em] text-neutral-950 shadow-xl shadow-amber-500/20 transition-all hover:bg-amber-400 active:scale-[0.98]"
+                  className="
+                    group
+                    relative
+                    flex
+                    h-[52px]
+                    items-center
+                    justify-center
+                    overflow-hidden
+                    rounded-full
+                    border
+                    border-amber-300/30
+                    bg-amber-400
+                    text-[11px]
+                    font-bold
+                    uppercase
+                    tracking-[0.18em]
+                    text-neutral-950
+                    shadow-[0_8px_30px_rgba(245,158,11,0.18)]
+                    transition-all
+                    active:scale-[0.98]
+                  "
                 >
-                  <span className="relative z-10">Book a Shoot</span>
+                  <span
+                    className="
+                      absolute
+                      inset-y-0
+                      -left-[100%]
+                      w-[55%]
+                      skew-x-[-20deg]
+                      bg-white/35
+                      blur-md
+                      transition-all
+                      duration-700
+                      group-hover:left-[130%]
+                    "
+                  />
+
+                  <span className="relative z-10">
+                    Book a Shoot
+                  </span>
                 </Link>
-                <div className="mt-3.5 flex items-center justify-center gap-2">
-                  <Phone className="h-3.5 w-3.5 text-amber-300" />
+
+                <div className="mt-3 flex items-center justify-center gap-2">
+                  <Phone className="h-3.5 w-3.5 text-amber-500 dark:text-amber-300" />
+
                   <a
                     href="tel:09724322046"
-                    className="text-xs tracking-wide text-white/70 transition-colors hover:text-white"
+                    className="
+                      text-[11px]
+                      tracking-wide
+                      text-neutral-500
+                      transition-colors
+                      hover:text-neutral-900
+                      dark:text-white/45
+                      dark:hover:text-white
+                    "
                   >
                     097243 22046
                   </a>
