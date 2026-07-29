@@ -14,16 +14,16 @@ export function Footer() {
   }
 
   return (
-    <footer className="bg-neutral-900 dark:bg-[#070707] text-neutral-300 pt-16 pb-12 border-t border-neutral-800 transition-colors">
+    <footer className="bg-[#EFECE6] dark:bg-[#080808] text-neutral-800 dark:text-neutral-300 pt-16 pb-12 border-t border-neutral-300/80 dark:border-neutral-800/80 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-14 border-b border-neutral-800/80">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-14 border-b border-neutral-300/70 dark:border-neutral-800/80">
           {/* Column 1: Brand Info */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2.5 font-serif text-xl font-bold uppercase tracking-widest text-white">
-              <Camera className="w-5 h-5 text-amber-500" />
+            <Link href="/" className="flex items-center gap-2.5 font-serif text-xl font-bold uppercase tracking-widest text-neutral-900 dark:text-white">
+              <Camera className="w-5 h-5 text-amber-700 dark:text-amber-500" />
               <span>Shree Shyam Studio</span>
             </Link>
-            <p className="text-sm text-neutral-400 leading-relaxed font-light">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-light">
               Premium wedding & event photography studio based in Sanand, Gujarat. Crafting timeless visual stories and emotional memories.
             </p>
             <div className="flex items-center gap-3 pt-2">
@@ -31,7 +31,7 @@ export function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-neutral-800 hover:bg-amber-600 text-neutral-300 hover:text-white flex items-center justify-center transition-all"
+                className="w-9 h-9 rounded-full bg-neutral-200/80 dark:bg-neutral-800 hover:bg-amber-700 dark:hover:bg-amber-600 text-neutral-700 dark:text-neutral-300 hover:text-white dark:hover:text-white flex items-center justify-center transition-all"
                 aria-label="Instagram"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -42,7 +42,7 @@ export function Footer() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-neutral-800 hover:bg-amber-600 text-neutral-300 hover:text-white flex items-center justify-center transition-all"
+                className="w-9 h-9 rounded-full bg-neutral-200/80 dark:bg-neutral-800 hover:bg-amber-700 dark:hover:bg-amber-600 text-neutral-700 dark:text-neutral-300 hover:text-white dark:hover:text-white flex items-center justify-center transition-all"
                 aria-label="Facebook"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -53,7 +53,7 @@ export function Footer() {
                 href="https://youtube.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-neutral-800 hover:bg-amber-600 text-neutral-300 hover:text-white flex items-center justify-center transition-all"
+                className="w-9 h-9 rounded-full bg-neutral-200/80 dark:bg-neutral-800 hover:bg-amber-700 dark:hover:bg-amber-600 text-neutral-700 dark:text-neutral-300 hover:text-white dark:hover:text-white flex items-center justify-center transition-all"
                 aria-label="YouTube"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -65,32 +65,32 @@ export function Footer() {
 
           {/* Column 2: Photography Services */}
           <div>
-            <h3 className="text-xs uppercase tracking-widest font-semibold text-amber-400 mb-5">
+            <h3 className="text-xs uppercase tracking-widest font-semibold text-amber-800 dark:text-amber-400 mb-5">
               Photography Services
             </h3>
-            <ul className="space-y-3 text-sm text-neutral-400 font-light">
+            <ul className="space-y-3 text-sm text-neutral-600 dark:text-neutral-400 font-light">
               <li>
-                <Link href="/services#wedding" className="hover:text-white transition-colors">
+                <Link href="/services#wedding" className="hover:text-neutral-900 dark:hover:text-white transition-colors">
                   Wedding Photography (₹25k+)
                 </Link>
               </li>
               <li>
-                <Link href="/services#birthday" className="hover:text-white transition-colors">
+                <Link href="/services#birthday" className="hover:text-neutral-900 dark:hover:text-white transition-colors">
                   Birthday Photography (₹10k+)
                 </Link>
               </li>
               <li>
-                <Link href="/services#engagement" className="hover:text-white transition-colors">
+                <Link href="/services#engagement" className="hover:text-neutral-900 dark:hover:text-white transition-colors">
                   Engagement Shoot (₹12k+)
                 </Link>
               </li>
               <li>
-                <Link href="/services#pre-wedding" className="hover:text-white transition-colors">
+                <Link href="/services#pre-wedding" className="hover:text-neutral-900 dark:hover:text-white transition-colors">
                   Pre-Wedding Concept Shoot
                 </Link>
               </li>
               <li>
-                <Link href="/services#events" className="hover:text-white transition-colors">
+                <Link href="/services#events" className="hover:text-neutral-900 dark:hover:text-white transition-colors">
                   Corporate & Event Coverage
                 </Link>
               </li>
@@ -99,32 +99,32 @@ export function Footer() {
 
           {/* Column 3: Quick Navigation */}
           <div>
-            <h3 className="text-xs uppercase tracking-widest font-semibold text-amber-400 mb-5">
+            <h3 className="text-xs uppercase tracking-widest font-semibold text-amber-800 dark:text-amber-400 mb-5">
               Quick Links
             </h3>
-            <ul className="space-y-3 text-sm text-neutral-400 font-light">
+            <ul className="space-y-3 text-sm text-neutral-600 dark:text-neutral-400 font-light">
               <li>
-                <Link href="/about" className="hover:text-white transition-colors">
+                <Link href="/about" className="hover:text-neutral-900 dark:hover:text-white transition-colors">
                   About Studio
                 </Link>
               </li>
               <li>
-                <Link href="/portfolio" className="hover:text-white transition-colors">
+                <Link href="/portfolio" className="hover:text-neutral-900 dark:hover:text-white transition-colors">
                   Featured Portfolio
                 </Link>
               </li>
               <li>
-                <Link href="/packages" className="hover:text-white transition-colors">
+                <Link href="/packages" className="hover:text-neutral-900 dark:hover:text-white transition-colors">
                   Packages & Pricing
                 </Link>
               </li>
               <li>
-                <Link href="/journal" className="hover:text-white transition-colors">
+                <Link href="/journal" className="hover:text-neutral-900 dark:hover:text-white transition-colors">
                   Journal & Stories
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-white transition-colors">
+                <Link href="/contact" className="hover:text-neutral-900 dark:hover:text-white transition-colors">
                   Book a Shoot / Contact
                 </Link>
               </li>
@@ -133,25 +133,25 @@ export function Footer() {
 
           {/* Column 4: Verified Contact & Studio Location */}
           <div>
-            <h3 className="text-xs uppercase tracking-widest font-semibold text-amber-400 mb-5">
+            <h3 className="text-xs uppercase tracking-widest font-semibold text-amber-800 dark:text-amber-400 mb-5">
               Studio Location
             </h3>
-            <div className="space-y-4 text-sm text-neutral-400 font-light">
+            <div className="space-y-4 text-sm text-neutral-600 dark:text-neutral-400 font-light">
               <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-amber-500 shrink-0 mt-1" />
+                <MapPin className="w-4 h-4 text-amber-700 dark:text-amber-500 shrink-0 mt-1" />
                 <span>
                   101 Shubham Elite, Eklingji Road, behind Somnath Bus Stand, Sanand, Gujarat 382110
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-amber-500 shrink-0" />
-                <a href="tel:09724322046" className="hover:text-white transition-colors font-medium">
+                <Phone className="w-4 h-4 text-amber-700 dark:text-amber-500 shrink-0" />
+                <a href="tel:09724322046" className="hover:text-neutral-900 dark:hover:text-white transition-colors font-medium">
                   097243 22046
                 </a>
               </div>
               <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-amber-500 shrink-0" />
-                <a href="mailto:contact@shreeshyamstudio.com" className="hover:text-white transition-colors">
+                <Mail className="w-4 h-4 text-amber-700 dark:text-amber-500 shrink-0" />
+                <a href="mailto:contact@shreeshyamstudio.com" className="hover:text-neutral-900 dark:hover:text-white transition-colors">
                   contact@shreeshyamstudio.com
                 </a>
               </div>
@@ -160,16 +160,16 @@ export function Footer() {
         </div>
 
         {/* Bottom copyright & legal */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-500 font-light">
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-500 dark:text-neutral-500 font-light">
           <p>© {new Date().getFullYear()} Shree Shyam Studio. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link href="/privacy" className="hover:text-neutral-300 transition-colors">
+            <Link href="/privacy" className="hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-neutral-300 transition-colors">
+            <Link href="/terms" className="hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors">
               Terms & Conditions
             </Link>
-            <Link href="/admin/login" className="hover:text-neutral-300 transition-colors opacity-60">
+            <Link href="/admin/login" className="hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors opacity-60">
               Admin CMS
             </Link>
           </div>
